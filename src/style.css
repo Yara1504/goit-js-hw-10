@@ -1,0 +1,38 @@
+body {
+    background-color: rgba(200, 241, 133, 0.8);
+}
+
+.breed-select {
+  width: 400px;
+  padding: 10px; 
+  font-size: 20px;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  border: 5px;
+  background-color: rgba(251, 255, 244, 0.8);
+}
+
+.loader {
+  font-size: 20px;
+  color: red;
+  margin-top: 20px;
+}
+
+.error {
+  font-size: 20px;
+  color: blue;
+  margin-top: 20px; 
+}
+
+.cat-info {
+  max-width: 500px;
+  margin: 0 auto;
+  background-color: rgba(251, 255, 244, 0.8);
+  padding: 20px;
+  border-radius: 20px;
+}
+.cat-info img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+}
