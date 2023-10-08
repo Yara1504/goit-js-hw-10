@@ -7,10 +7,19 @@ const catInfo = document.querySelector(".cat-info");
 const loader = document.querySelector(".loader");
 const error = document.querySelector(".error");
 
+function hideLoader() {
+  loader.style.display = "none";
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  setupBreedSelect();
+});
+
 breedSelect.addEventListener("change", (event) => {
   const selectedBreedId = event.target.value;
 
   if (selectedBreedId) {
+    catInfo.innerHTML = "";
     showCatInfo(selectedBreedId);
   } else {
     catInfo.innerHTML = "";
@@ -40,7 +49,7 @@ function showCatInfo(breedId) {
       error.style.display = "block";
     })
     .finally(() => {
-      loader.style.display = "none";
+      hideLoader();
     });
 }
 
