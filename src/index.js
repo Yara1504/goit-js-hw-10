@@ -6,43 +6,58 @@ const breedSelect = document.querySelector(".breed-select");
 const catInfo = document.querySelector(".cat-info");
 const loader = document.querySelector(".loader");
 const error = document.querySelector(".error");
+let currentBreedId = null;
 
 function hideLoader() {
   loader.style.display = "none";
 }
 
+function showLoader() {
+  loader.style.display = "block";
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   setupBreedSelect();
+  hideLoader();
 });
 
 breedSelect.addEventListener("change", (event) => {
   const selectedBreedId = event.target.value;
 
   if (selectedBreedId) {
-    catInfo.innerHTML = "";
+    clearCat();
+    currentBreedId = selectedBreedId;
+    showLoader();
     showCatInfo(selectedBreedId);
   } else {
-    catInfo.innerHTML = "";
+    clearCatInfo();
+    currentBreedId = null;
   }
 });
 
+function clearCat() {
+  catInfo.innerHTML = "";
+  error.style.display = "none";
+}  
+
 function showCatInfo(breedId) {
-  loader.style.display = "block";
   error.style.display = "none";
 
   requestServer(breedId)
     .then((data) => {
-      const { name, description, temperament } = data[0].breeds[0];
-      const imageUrl = data[0].url;
+      if (breedId === currentBreedId) {
+        const { name, description, temperament } = data[0].breeds[0];
+        const imageUrl = data[0].url;
 
-      const catInfoHTML = `
+        const catInfoHTML = `
         <h2>${name}</h2>
         <p><strong>Опис:</strong> ${description}</p>
         <p><strong>Темперамент:</strong> ${temperament}</p>
         <img src="${imageUrl}" alt="${name}" />
       `;
 
-      catInfo.innerHTML = catInfoHTML;
+        catInfo.innerHTML = catInfoHTML;
+      }
     })
     .catch((err) => {
       console.error(err);
